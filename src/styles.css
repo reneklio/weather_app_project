@@ -71,7 +71,7 @@ i.fa-solid.fa-cloud-sun {
     padding-top: 15px;
 }
 
-.mb-3 {
+form {
     display: flex;
     flex-direction: row;
 }
@@ -87,6 +87,8 @@ i.fa-solid.fa-cloud-sun {
     color: black;
     border: 2px solid #1f4869;
     transition: all 200ms ease;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .btn.btn-primary:hover {

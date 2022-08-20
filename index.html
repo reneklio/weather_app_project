@@ -26,9 +26,9 @@
                     <div class="col-7">
                         <span id="res">24</span> <a href="#" id="cel">°C</a>|<a href="#" id="fahr">°F</a>
                         <br />
-                        <span id="hum">Humidity: 59%</span>
+                        Humidity: <span id="hum">59</span>%
                         <br />
-                        <span id="wind"></span>Wind: 6km/h</span>
+                        Wind: <span id="wind">6 </span> m/sec
                         <br />
                         Clouds <i class="fa-solid fa-cloud"></i>
                     </div>
@@ -74,8 +74,16 @@
         </div>
 
         <div class="mb-3">
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter a city" />
-            <button type="submit" class="btn btn-primary" id="srch">SEARCH</button>
+            <form action="submit">
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter a city" />
+
+                <button type="submit" class="btn btn-primary" id="srch">
+                    SEARCH
+                </button>
+                <button type="submit" class="btn btn-primary" id="location">
+                    YOUR LOCATION
+                </button>
+            </form>
         </div>
     </div>
     <script src="src/index.js"></script>
