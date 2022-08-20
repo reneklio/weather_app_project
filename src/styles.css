@@ -95,3 +95,14 @@ form {
     background-color: #1f4869;
     border: 2px solid #1f4869;
 }
+
+#author {
+    color: #E2E7EF;
+    font-size: smaller;
+    text-decoration: none;
+    padding-left: 15px;
+}
+
+#author:hover {
+    text-decoration: underline;
+}
