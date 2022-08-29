@@ -1,9 +1,9 @@
 .app {
-    padding: 20px;
+    padding: 5px 15px;
     margin: 40px auto;
     border-radius: 5px;
     box-sizing: content-box;
-    width: 53%;
+    max-width: 53%;
     background: url("https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center no-repeat;
     background-size: cover;
     font-family: "Merriweather Sans", sans-serif;
@@ -21,7 +21,7 @@
     border: 2px solid #1f4869;
     margin-inline: 15px;
     margin-top: 30px;
-    padding: 20px 40px;
+    padding: 20px 20px;
     background-color: #91a6b1;
     opacity: 0.8;
     border-radius: 8px;
@@ -30,14 +30,24 @@
 
 .col-4 {
     text-align: right;
+    padding: 50px 40px;
     border: 2px solid #1f4869;
     margin-inline: 15px;
     margin-top: 30px;
-    padding: 30px 40px;
+    padding: auto;
     background-color: #91a6b1;
     opacity: 0.8;
     border-radius: 8px;
     position: static;
+}
+
+#icon {
+    size: 10px;
+
+}
+
+#description {
+    text-transform: capitalize;
 }
 
 #cel,

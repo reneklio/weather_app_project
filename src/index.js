@@ -6,8 +6,12 @@ function getDataTemp(response) {
         response.data.main.temp
     );
     document.querySelector("#hum").innerHTML = response.data.main.humidity;
-    document.querySelector("#wind").innerHTML = response.data.wind.speed;
+    document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     console.log(response);
+    document.querySelector("#description").innerHTML = response.data.weather[0].description;
+
+    document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+    document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
 }
 
 getData("Kyiv");
