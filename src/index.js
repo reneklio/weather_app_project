@@ -2,9 +2,9 @@
 
 function getDataTemp(response) {
     document.querySelector("#city").innerHTML = response.data.name;
-    document.querySelector("#res").innerHTML = Math.round(
-        response.data.main.temp
-    );
+    celciusTemperature = response.data.main.temp;
+    document.querySelector("#res").innerHTML = Math.round(celciusTemperature);
+
     document.querySelector("#hum").innerHTML = response.data.main.humidity;
     document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
     console.log(response);
@@ -31,6 +31,29 @@ function submit(event) {
 let form = document.querySelector("form");
 form.addEventListener("submit", submit);
 
+//--TEMPERATURE--//
+
+let celtemp = document.querySelector("#cel");
+let fahrtemp = document.querySelector("#fahr");
+let restemp = document.querySelector("#res");
+
+
+
+function showcel(event) {
+    restemp.innerHTML = Math.round(celciusTemperature);
+
+}
+
+function showfahr(event) {
+    restemp.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
+
+}
+
+celtemp.addEventListener("click", showcel);
+fahrtemp.addEventListener("click", showfahr);
+
+
+
 //--CURRENT LOCATION BUTTON--//
 
 function showTempPos(position) {
@@ -53,12 +76,6 @@ locButton.addEventListener("click", getCurrentPosition);
 //--DATA AND TIME--//
 
 let now = new Date();
-console.log(now.getHours());
-console.log(now.getMinutes());
-console.log(now.getDay());
-console.log(now.getDate());
-console.log(now.getMonth());
-console.log(now.getFullYear());
 
 let days = [
     "Sunday",
@@ -96,23 +113,6 @@ let currYear = now.getFullYear();
 let projDate = document.querySelector("#currDate");
 projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
 
-//--TEMPERATURE--//
 
-let celtemp = document.querySelector("#cel");
-let fahrtemp = document.querySelector("#fahr");
-let restemp = document.querySelector("#res");
 
-console.log(celtemp);
-console.log(fahrtemp);
-console.log(restemp);
 
-function showcel(event) {
-    restemp.innerHTML = 20;
-}
-
-function showfahr(event) {
-    restemp.innerHTML = 70;
-}
-
-celtemp.addEventListener("click", showcel);
-fahrtemp.addEventListener("click", showfahr);
