@@ -42,7 +42,6 @@
 }
 
 
-
 #description {
     text-transform: capitalize;
 }
@@ -54,10 +53,7 @@
     opacity: 0.8;
 }
 
-#cel:hover {
-    text-decoration: underline;
-}
-
+#cel:hover,
 #fahr:hover {
     text-decoration: underline;
 }
@@ -65,15 +61,12 @@
 .grid {
     display: flex;
     flex-direction: row;
-    margin: 1px auto;
-
-
-
+    margin: 5px auto;
 }
 
 .day {
-    padding: 55px 28px;
-    margin: 45px 6px;
+    padding: 35px 20px;
+    margin: 25px 4px;
     border: 2px solid #1f4869;
     border-radius: 40%;
     background-color: #91a6b1;
@@ -82,13 +75,13 @@
     font-size: 20px;
 }
 
-i.fa-solid.fa-sun,
-i.fa-solid.fa-cloud-sun {
-    font-size: 45px;
+.forecastDay,
+.forecastTemperature {
     display: block;
     text-align: center;
-    padding-top: 15px;
+    line-height: 2px;
 }
+
 
 form {
     display: flex;

@@ -1,8 +1,16 @@
 //--API--//
 
+function getForecast(coordinates) {
+    console.log(coordinates);
+    let apiKey = "f2a7bf87b777299f2d3968c89592e347";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    console.log(apiUrl);
+
+    axios.get(apiUrl).then(displayForecast);
+}
+
 function getDataTemp(response) {
 
-    displayForecast();
     document.querySelector("#city").innerHTML = response.data.name;
     celciusTemperature = response.data.main.temp;
     document.querySelector("#res").innerHTML = Math.round(celciusTemperature);
@@ -14,6 +22,8 @@ function getDataTemp(response) {
 
     document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
     document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
+
+    getForecast(response.data.coord);
 }
 
 getData("Kyiv");
@@ -115,36 +125,49 @@ let currYear = now.getFullYear();
 let projDate = document.querySelector("#currDate");
 projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
 
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+
+    let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ];
+
+    return days[day];
+}
+
+
 //-- FORECAST --//
 
-function displayForecast() {
+function displayForecast(response) {
+    let forecast = response.data.daily;
     let forecastElement = document.querySelector("#forecast");
 
     let forecastHTML = `<div class="grid">`;
 
-    let forecastDays = [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu"
-    ];
 
-    forecastDays.forEach(function (day) {
-        forecastHTML = forecastHTML +
-            ` <div class="day">
-                ${day} 25°C
+
+    forecast.forEach(function (forecastDay, index) {
+
+        if (index < 5) {
+            forecastHTML = forecastHTML +
+                ` <div class="day">
+                <span class = "forecastDay">${formatDay(forecastDay.dt)}</span> 
                 <br />
-                <i class="fa-solid fa-sun"></i>
+                <span class = "forecastTemperature">${Math.round(forecastDay.temp.day)}°C</span>
+                <br />
+                <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" id="forecast-icon" />
             </div>`;
-
+        }
     })
 
-
-
-
     forecastHTML = forecastHTML + `</div>`;
-
     forecastElement.innerHTML = forecastHTML;
 }
 
