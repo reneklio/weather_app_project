@@ -65,11 +65,15 @@
 .grid {
     display: flex;
     flex-direction: row;
+    margin: 1px auto;
+
+
+
 }
 
 .day {
-    padding: 60px 28px;
-    margin: 45px auto;
+    padding: 55px 28px;
+    margin: 45px 6px;
     border: 2px solid #1f4869;
     border-radius: 40%;
     background-color: #91a6b1;

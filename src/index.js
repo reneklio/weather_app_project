@@ -1,6 +1,8 @@
 //--API--//
 
 function getDataTemp(response) {
+
+    displayForecast();
     document.querySelector("#city").innerHTML = response.data.name;
     celciusTemperature = response.data.main.temp;
     document.querySelector("#res").innerHTML = Math.round(celciusTemperature);
@@ -86,10 +88,10 @@ let days = [
     "Friday",
     "Saturday"
 ];
-let todDay = days[now.getDay()];
+let day = days[now.getDay()];
 
 let projDay = document.querySelector("#currDay");
-projDay.innerHTML = todDay;
+projDay.innerHTML = day;
 
 let todMin = now.getMinutes();
 let todHours = now.getHours();
@@ -113,6 +115,37 @@ let currYear = now.getFullYear();
 let projDate = document.querySelector("#currDate");
 projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
 
+//-- FORECAST --//
 
+function displayForecast() {
+    let forecastElement = document.querySelector("#forecast");
+
+    let forecastHTML = `<div class="grid">`;
+
+    let forecastDays = [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+    ];
+
+    forecastDays.forEach(function (day) {
+        forecastHTML = forecastHTML +
+            ` <div class="day">
+                ${day} 25°C
+                <br />
+                <i class="fa-solid fa-sun"></i>
+            </div>`;
+
+    })
+
+
+
+
+    forecastHTML = forecastHTML + `</div>`;
+
+    forecastElement.innerHTML = forecastHTML;
+}
 
 
