@@ -1,0 +1,120 @@
+.app {
+    padding: 5px 15px;
+    margin: 40px auto;
+    border-radius: 5px;
+    box-sizing: content-box;
+    max-width: 53%;
+    background: url("https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") center no-repeat;
+    background-size: cover;
+    font-family: "Merriweather Sans", sans-serif;
+    border: 2px solid #1f4869;
+}
+
+.container {
+    margin-top: 30px;
+    font-weight: 400;
+    font-size: 27px;
+}
+
+.col-7 {
+    text-align: center;
+    border: 2px solid #1f4869;
+    margin-inline: 15px;
+    margin-top: 30px;
+    padding: 20px 20px;
+    background-color: #91a6b1;
+    opacity: 0.8;
+    border-radius: 8px;
+    position: static;
+}
+
+.col-4 {
+    text-align: right;
+    padding: 50px 40px;
+    border: 2px solid #1f4869;
+    margin-inline: 15px;
+    margin-top: 30px;
+    padding: auto;
+    background-color: #91a6b1;
+    opacity: 0.8;
+    border-radius: 8px;
+    position: static;
+}
+
+
+#description {
+    text-transform: capitalize;
+}
+
+#cel,
+#fahr {
+    color: black;
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+#cel:hover,
+#fahr:hover {
+    text-decoration: underline;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    margin: 5px auto;
+}
+
+.day {
+    padding: 35px 20px;
+    margin: 25px 4px;
+    border: 2px solid #1f4869;
+    border-radius: 40%;
+    background-color: #91a6b1;
+    opacity: 0.8;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.forecastDay,
+.forecastTemperature {
+    display: block;
+    text-align: center;
+    line-height: 2px;
+}
+
+
+form {
+    display: flex;
+    flex-direction: row;
+}
+
+#formGroupExampleInput {
+    margin-inline: 10px;
+    border: 2px solid #1f4869;
+}
+
+.btn.btn-primary {
+    margin-inline: 20px;
+    background-color: #b9cad4;
+    color: black;
+    border: 2px solid #1f4869;
+    transition: all 200ms ease;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.btn.btn-primary:hover {
+    background-color: #1f4869;
+    border: 2px solid #1f4869;
+}
+
+#author {
+    color: #E2E7EF;
+    font-size: smaller;
+    text-decoration: none;
+    padding-left: 15px;
+}
+
+#author:hover {
+    text-decoration: underline;
+}
