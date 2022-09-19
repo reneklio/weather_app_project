@@ -1,13 +1,14 @@
 //--API--//
-
-function getForecast(coordinates) {
-
-    let apiKey = "f2a7bf87b777299f2d3968c89592e347";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+let apiKey = "f2a7bf87b777299f2d3968c89592e347";
 
 
-    axios.get(apiUrl).then(displayForecast);
+getData("Kyiv");
+
+function getData(response) {
+
+    axios.get(apiURL).then(getDataTemp);
 }
+
 
 function getDataTemp(response) {
 
@@ -26,121 +27,13 @@ function getDataTemp(response) {
     getForecast(response.data.coord);
 }
 
-getData("Kyiv");
-
-function getData(city) {
-    let apiKey = "f2a7bf87b777299f2d3968c89592e347";
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-    axios.get(apiURL).then(getDataTemp);
-}
-
-function submit(event) {
-    event.preventDefault();
-    let cName = document.querySelector("#form-input").value;
-    getData(cName);
-}
-let form = document.querySelector("form");
-form.addEventListener("submit", submit);
-
-//--TEMPERATURE--//
-
-let celtemp = document.querySelector("#cel");
-let fahrtemp = document.querySelector("#fahr");
-let restemp = document.querySelector("#res");
 
 
+function getForecast(coordinates) {
 
-function showcel(event) {
-    restemp.innerHTML = Math.round(celciusTemperature);
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
 
-}
-
-function showfahr(event) {
-    restemp.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
-
-}
-
-celtemp.addEventListener("click", showcel);
-fahrtemp.addEventListener("click", showfahr);
-
-
-
-//--CURRENT LOCATION BUTTON--//
-
-function showTempPos(position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiKey = `f2a7bf87b777299f2d3968c89592e347`;
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-    axios.get(apiURL).then(getDataTemp);
-}
-
-function getCurrentPosition(event) {
-    event.preventDefault();
-    navigator.geolocation.getCurrentPosition(showTempPos);
-}
-
-let locButton = document.querySelector("#location");
-locButton.addEventListener("click", getCurrentPosition);
-
-//--DATA AND TIME--//
-
-let now = new Date();
-
-let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-];
-let day = days[now.getDay()];
-
-let projDay = document.querySelector("#currDay");
-projDay.innerHTML = day;
-
-let todMin = now.getMinutes();
-let todHours = now.getHours();
-if (todHours < 10) {
-    todHours = `0${todHours}`;
-}
-
-if (todMin < 10) {
-    todMin = `0${todMin}`;
-}
-let projTime = document.querySelector("#currTime");
-projTime.innerHTML = `${todHours}:${todMin}`;
-
-
-
-
-let todMonth = now.getMonth() + 1;
-
-let currDay = now.getDate();
-let currYear = now.getFullYear();
-
-let projDate = document.querySelector("#currDate");
-projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
-
-function formatDay(timestamp) {
-    let date = new Date(timestamp * 1000);
-    let day = date.getDay();
-
-    let days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-    ];
-
-    return days[day];
+    axios.get(apiUrl).then(displayForecast);
 }
 
 
@@ -172,4 +65,117 @@ function displayForecast(response) {
     forecastElement.innerHTML = forecastHTML;
 }
 
+//-- SUBMIT AND CURRENT LOCATION --//
 
+
+function submit(event) {
+    event.preventDefault();
+    let cName = document.querySelector("#form-input").value;
+    getData(cName);
+}
+let form = document.querySelector("form");
+form.addEventListener("submit", submit);
+
+
+
+//--CURRENT LOCATION BUTTON--//
+
+function showTempPos(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiURL).then(getDataTemp);
+}
+
+function getCurrentPosition(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(showTempPos);
+}
+
+let locButton = document.querySelector("#location");
+locButton.addEventListener("click", getCurrentPosition);
+
+
+
+
+//--DATA AND TIME--//
+
+let now = new Date();
+
+let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+];
+let day = days[now.getDay()];
+
+
+
+let projDay = document.querySelector("#currDay");
+projDay.innerHTML = day;
+
+let todMin = now.getMinutes();
+let todHours = now.getHours();
+if (todHours < 10) {
+    todHours = `0${todHours}`;
+}
+
+if (todMin < 10) {
+    todMin = `0${todMin}`;
+}
+let projTime = document.querySelector("#currTime");
+projTime.innerHTML = `${todHours}:${todMin}`;
+
+
+let todMonth = now.getMonth() + 1;
+
+let currDay = now.getDate();
+let currYear = now.getFullYear();
+
+let projDate = document.querySelector("#currDate");
+projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
+
+function formatDay(timestamp) {
+    let date = new Date(timestamp * 1000);
+    let day = date.getDay();
+
+    let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ];
+
+    return days[day];
+}
+
+
+
+//--TEMPERATURE--//
+
+let celtemp = document.querySelector("#cel");
+let fahrtemp = document.querySelector("#fahr");
+let restemp = document.querySelector("#res");
+
+
+
+function showcel(event) {
+    restemp.innerHTML = Math.round(celciusTemperature);
+
+}
+
+function showfahr(event) {
+    restemp.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
+
+}
+
+celtemp.addEventListener("click", showcel);
+fahrtemp.addEventListener("click", showfahr);
