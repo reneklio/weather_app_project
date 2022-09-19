@@ -4,7 +4,8 @@ let apiKey = "f2a7bf87b777299f2d3968c89592e347";
 
 getData("Kyiv");
 
-function getData(response) {
+function getData(city) {
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     axios.get(apiURL).then(getDataTemp);
 }
@@ -103,7 +104,7 @@ locButton.addEventListener("click", getCurrentPosition);
 
 let now = new Date();
 
-let days = [
+const days = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -143,16 +144,6 @@ projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
 function formatDay(timestamp) {
     let date = new Date(timestamp * 1000);
     let day = date.getDay();
-
-    let days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-    ];
 
     return days[day];
 }
