@@ -88,7 +88,7 @@ form {
     flex-direction: row;
 }
 
-#formGroupExampleInput {
+#form-input {
     margin-inline: 10px;
     border: 2px solid #1f4869;
 }
