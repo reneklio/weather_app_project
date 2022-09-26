@@ -13,17 +13,17 @@ function getData(city) {
 
 function getDataTemp(response) {
 
-    document.querySelector("#city").innerHTML = response.data.name;
+    document.querySelector("#current-city").innerHTML = response.data.name;
     celciusTemperature = response.data.main.temp;
-    document.querySelector("#res").innerHTML = Math.round(celciusTemperature);
+    document.querySelector("#current-temperature").innerHTML = Math.round(celciusTemperature);
 
-    document.querySelector("#hum").innerHTML = response.data.main.humidity;
-    document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
+    document.querySelector("#current-humidity").innerHTML = response.data.main.humidity;
+    document.querySelector("#current-wind").innerHTML = Math.round(response.data.wind.speed);
 
-    document.querySelector("#description").innerHTML = response.data.weather[0].description;
+    document.querySelector("#current-description").innerHTML = response.data.weather[0].description;
 
-    document.querySelector("#icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-    document.querySelector("#icon").setAttribute("alt", response.data.weather[0].description);
+    document.querySelector("#current-icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+    document.querySelector("#current-icon").setAttribute("alt", response.data.weather[0].description);
 
     getForecast(response.data.coord);
 }
@@ -52,10 +52,10 @@ function displayForecast(response) {
 
         if (index < 5) {
             forecastHTML = forecastHTML +
-                ` <div class="day">
-                <span class = "forecastDay">${formatDay(forecastDay.dt)}</span> 
+                ` <div class="forecast-unit">
+                <span class = "forecast-day">${formatDay(forecastDay.dt)}</span> 
                 <br />
-                <span class = "forecastTemperature">${Math.round(forecastDay.temp.day)}°C</span>
+                <span class = "forecast-temperature">${Math.round(forecastDay.temp.day)}°C</span>
                 <br />
                 <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" id="forecast-icon" />
             </div>`;
@@ -94,7 +94,7 @@ function getCurrentPosition(event) {
     navigator.geolocation.getCurrentPosition(showTempPos);
 }
 
-let locButton = document.querySelector("#location");
+let locButton = document.querySelector("#form-btn-location");
 locButton.addEventListener("click", getCurrentPosition);
 
 
@@ -117,7 +117,7 @@ let day = days[now.getDay()];
 
 
 
-let projDay = document.querySelector("#currDay");
+let projDay = document.querySelector("#current-day");
 projDay.innerHTML = day;
 
 let todMin = now.getMinutes();
@@ -129,7 +129,7 @@ if (todHours < 10) {
 if (todMin < 10) {
     todMin = `0${todMin}`;
 }
-let projTime = document.querySelector("#currTime");
+let projTime = document.querySelector("#current-time");
 projTime.innerHTML = `${todHours}:${todMin}`;
 
 
@@ -138,7 +138,7 @@ let todMonth = now.getMonth() + 1;
 let currDay = now.getDate();
 let currYear = now.getFullYear();
 
-let projDate = document.querySelector("#currDate");
+let projDate = document.querySelector("#current-date");
 projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
 
 function formatDay(timestamp) {
@@ -152,9 +152,9 @@ function formatDay(timestamp) {
 
 //--TEMPERATURE--//
 
-let celtemp = document.querySelector("#cel");
-let fahrtemp = document.querySelector("#fahr");
-let restemp = document.querySelector("#res");
+let celtemp = document.querySelector("#current-celcius");
+let fahrtemp = document.querySelector("#current-fahrenheit");
+let restemp = document.querySelector("#current-temperature");
 
 
 

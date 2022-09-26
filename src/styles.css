@@ -42,19 +42,19 @@
 }
 
 
-#description {
+#current-description {
     text-transform: capitalize;
 }
 
-#cel,
-#fahr {
+#current-celcius,
+#current-fahrenheit {
     color: black;
     text-decoration: none;
     opacity: 0.8;
 }
 
-#cel:hover,
-#fahr:hover {
+#current-celcius:hover,
+#current-fahrenheit:hover {
     text-decoration: underline;
 }
 
@@ -64,7 +64,7 @@
     margin: 5px auto;
 }
 
-.day {
+.forecast-unit {
     padding: 35px 20px;
     margin: 25px 4px;
     border: 2px solid #1f4869;
@@ -75,8 +75,8 @@
     font-size: 20px;
 }
 
-.forecastDay,
-.forecastTemperature {
+.forecast-day,
+.forecast-temperature {
     display: block;
     text-align: center;
     line-height: 2px;
