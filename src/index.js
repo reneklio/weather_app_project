@@ -47,7 +47,6 @@ function displayForecast(response) {
     let forecastHTML = `<div class="grid">`;
 
 
-
     forecast.forEach(function (forecastDay, index) {
 
         if (index < 5) {
@@ -64,6 +63,7 @@ function displayForecast(response) {
 
     forecastHTML = forecastHTML + `</div>`;
     forecastElement.innerHTML = forecastHTML;
+
 }
 
 //-- SUBMIT AND CURRENT LOCATION --//
@@ -158,12 +158,12 @@ let restemp = document.querySelector("#current-temperature");
 
 
 
-function showcel(event) {
+function showcel(_event) {
     restemp.innerHTML = Math.round(celciusTemperature);
 
 }
 
-function showfahr(event) {
+function showfahr(_event) {
     restemp.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
 
 }
