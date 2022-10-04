@@ -1,72 +1,41 @@
 //--API--//
+
+let celciusTemperature;
 let apiKey = "f2a7bf87b777299f2d3968c89592e347";
-
-
-getData("Kyiv");
-
-function getData(city) {
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-    axios.get(apiURL).then(getDataTemp);
-}
-
-
-function getDataTemp(response) {
-
-    document.querySelector("#current-city").innerHTML = response.data.name;
-    celciusTemperature = response.data.main.temp;
-    document.querySelector("#current-temperature").innerHTML = Math.round(celciusTemperature);
-
-    document.querySelector("#current-humidity").innerHTML = response.data.main.humidity;
-    document.querySelector("#current-wind").innerHTML = Math.round(response.data.wind.speed);
-
-    document.querySelector("#current-description").innerHTML = response.data.weather[0].description;
-
-    document.querySelector("#current-icon").setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
-    document.querySelector("#current-icon").setAttribute("alt", response.data.weather[0].description);
-
-    getForecast(response.data.coord);
-}
-
+let baseUrl = "https://api.openweathermap.org/data/2.5";
 
 
 function getForecast(coordinates) {
+    let apiUrl = `${baseUrl}/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
 
-    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-
-    axios.get(apiUrl).then(displayForecast);
+    return axios.get(apiUrl).then(displayForecast);
 }
 
 
-//-- FORECAST --//
+function getDataTemp(data) {
 
-function displayForecast(response) {
-    let forecast = response.data.daily;
-    let forecastElement = document.querySelector("#forecast");
+    document.querySelector("#current-city").innerHTML = data.name;
+    document.querySelector("#current-temperature").innerHTML = Math.round(data.main.temp);
 
-    let forecastHTML = `<div class="grid">`;
+    document.querySelector("#current-humidity").innerHTML = data.main.humidity;
+    document.querySelector("#current-wind").innerHTML = Math.round(data.wind.speed);
+    document.querySelector("#current-description").innerHTML = data.weather[0].description;
 
-
-    forecast.forEach(function (forecastDay, index) {
-
-        if (index < 5) {
-            forecastHTML = forecastHTML +
-                ` <div class="forecast-unit">
-                <span class = "forecast-day">${formatDay(forecastDay.dt)}</span> 
-                <br />
-                <span class = "forecast-temperature">${Math.round(forecastDay.temp.day)}°C</span>
-                <br />
-                <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" id="forecast-icon" />
-            </div>`;
-        }
-    })
-
-    forecastHTML = forecastHTML + `</div>`;
-    forecastElement.innerHTML = forecastHTML;
-
+    document.querySelector("#current-icon").setAttribute("src", `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+    document.querySelector("#current-icon").setAttribute("alt", data.weather[0].description);
 }
 
-//-- SUBMIT AND CURRENT LOCATION --//
+function onCityReceived(response) {
+    celciusTemperature = response.data.main.temp;
+    getDataTemp(response.data);
+    getForecast(response.data.coord);
+}
+
+function getData(city) {
+    let apiURL = `${baseUrl}/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    return axios.get(apiURL).then(onCityReceived);
+}
 
 
 function submit(event) {
@@ -74,19 +43,28 @@ function submit(event) {
     let cName = document.querySelector("#form-input").value;
     getData(cName);
 }
-let form = document.querySelector("form");
-form.addEventListener("submit", submit);
 
 
+//--TEMPERATURE--//
+
+function showcel() {
+    let currentTemperature = document.querySelector("#current-temperature");
+    currentTemperature.innerHTML = Math.round(celciusTemperature);
+}
+
+function showfahr() {
+    let currentTemperature = document.querySelector("#current-temperature");
+    currentTemperature.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
+}
 
 //--CURRENT LOCATION BUTTON--//
 
 function showTempPos(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    let apiURL = `${baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-    axios.get(apiURL).then(getDataTemp);
+    axios.get(apiURL).then(onCityReceived);
 }
 
 function getCurrentPosition(event) {
@@ -94,79 +72,71 @@ function getCurrentPosition(event) {
     navigator.geolocation.getCurrentPosition(showTempPos);
 }
 
-let locButton = document.querySelector("#form-btn-location");
-locButton.addEventListener("click", getCurrentPosition);
-
-
-
 
 //--DATA AND TIME--//
 
-let now = new Date();
-
-const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-];
-let day = days[now.getDay()];
-
-
-
-let projDay = document.querySelector("#current-day");
-projDay.innerHTML = day;
-
-let todMin = now.getMinutes();
-let todHours = now.getHours();
-if (todHours < 10) {
-    todHours = `0${todHours}`;
-}
-
-if (todMin < 10) {
-    todMin = `0${todMin}`;
-}
-let projTime = document.querySelector("#current-time");
-projTime.innerHTML = `${todHours}:${todMin}`;
-
-
-let todMonth = now.getMonth() + 1;
-
-let currDay = now.getDate();
-let currYear = now.getFullYear();
-
-let projDate = document.querySelector("#current-date");
-projDate.innerHTML = `${todMonth}/${currDay}/${currYear}`;
-
-function formatDay(timestamp) {
-    let date = new Date(timestamp * 1000);
-    let day = date.getDay();
-
-    return days[day];
+function formatDay(date) {
+    return new Intl.DateTimeFormat([], { weekday: 'long' }).format(date);
 }
 
 
+//--FORECAST--//
 
-//--TEMPERATURE--//
+function displayForecast(response) {
+    let forecast = response.data.daily.slice(0, 5);
+    let forecastElement = document.querySelector("#forecast");
 
-let celtemp = document.querySelector("#current-celcius");
-let fahrtemp = document.querySelector("#current-fahrenheit");
-let restemp = document.querySelector("#current-temperature");
+    forecastElement.innerHTML = `
+   <div class="grid">
+   ${forecast.reduce((res, day) => res + `
+   <div class="forecast-unit">
+   <span class = "forecast-day">${formatDay(new Date(day.dt * 1000))}</span> 
+                <br />
+                <span class = "forecast-temperature">${Math.round(day.temp.day)}°C</span>
+                <br />
+                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" id="forecast-icon" />
+            </div>
 
-
-
-function showcel(_event) {
-    restemp.innerHTML = Math.round(celciusTemperature);
-
+       `, '')}
+        </div>`;
 }
 
-function showfahr(_event) {
-    restemp.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
 
+function displayCurrentDate() {
+    let now = new Date();
+
+    let projDay = document.querySelector("#current-day");
+    projDay.innerHTML = formatDay(now);
+
+    let projTime = document.querySelector("#current-time");
+    projTime.innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    let projDate = document.querySelector("#current-date");
+    projDate.innerHTML = now.toLocaleDateString();
 }
 
-celtemp.addEventListener("click", showcel);
-fahrtemp.addEventListener("click", showfahr);
+
+function addListeners() {
+    let form = document.querySelector("form");
+    form.addEventListener("submit", submit);
+
+    let celtemp = document.querySelector("#current-celcius");
+    celtemp.addEventListener("click", showcel);
+
+    let fahrtemp = document.querySelector("#current-fahrenheit");
+    fahrtemp.addEventListener("click", showfahr);
+
+    let locButton = document.querySelector("#form-btn-location");
+    locButton.addEventListener("click", getCurrentPosition);
+}
+
+
+function main() {
+    getData("Kyiv");
+    addListeners();
+    displayCurrentDate();
+}
+
+main();
+
+
