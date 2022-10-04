@@ -132,7 +132,6 @@ function addListeners() {
 
 
 function main() {
-
     addListeners();
     displayCurrentDate();
     navigator.geolocation.getCurrentPosition(showTempPos);
