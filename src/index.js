@@ -132,9 +132,10 @@ function addListeners() {
 
 
 function main() {
-    getData("Kyiv");
+
     addListeners();
     displayCurrentDate();
+    navigator.geolocation.getCurrentPosition(showTempPos);
 }
 
 main();
