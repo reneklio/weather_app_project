@@ -46,14 +46,14 @@
     text-transform: capitalize;
 }
 
-#current-celcius,
+#current-celsius,
 #current-fahrenheit {
     color: black;
     text-decoration: none;
     opacity: 0.8;
 }
 
-#current-celcius:hover,
+#current-celsius:hover,
 #current-fahrenheit:hover {
     text-decoration: underline;
 }

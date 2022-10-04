@@ -12,7 +12,7 @@ function getForecast(coordinates) {
 }
 
 
-function getDataTemp(data) {
+function displayCurrentData(data) {
 
     document.querySelector("#current-city").innerHTML = data.name;
     document.querySelector("#current-temperature").innerHTML = Math.round(data.main.temp);
@@ -27,7 +27,7 @@ function getDataTemp(data) {
 
 function onCityReceived(response) {
     celciusTemperature = response.data.main.temp;
-    getDataTemp(response.data);
+    displayCurrentData(response.data);
     getForecast(response.data.coord);
 }
 
@@ -40,26 +40,26 @@ function getData(city) {
 
 function submit(event) {
     event.preventDefault();
-    let cName = document.querySelector("#form-input").value;
-    getData(cName);
+    let inputName = document.querySelector("#form-input").value;
+    getData(inputName);
 }
 
 
 //--TEMPERATURE--//
 
-function showcel() {
+function celsiusConvertion() {
     let currentTemperature = document.querySelector("#current-temperature");
     currentTemperature.innerHTML = Math.round(celciusTemperature);
 }
 
-function showfahr() {
+function fahrenheitConvertion() {
     let currentTemperature = document.querySelector("#current-temperature");
     currentTemperature.innerHTML = Math.round((celciusTemperature * 9 / 5) + 32);
 }
 
 //--CURRENT LOCATION BUTTON--//
 
-function showTempPos(position) {
+function getCurrentLocation(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     let apiURL = `${baseUrl}/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -69,7 +69,7 @@ function showTempPos(position) {
 
 function getCurrentPosition(event) {
     event.preventDefault();
-    navigator.geolocation.getCurrentPosition(showTempPos);
+    navigator.geolocation.getCurrentPosition(getCurrentLocation);
 }
 
 
@@ -105,14 +105,14 @@ function displayForecast(response) {
 function displayCurrentDate() {
     let now = new Date();
 
-    let projDay = document.querySelector("#current-day");
-    projDay.innerHTML = formatDay(now);
+    let currentDay = document.querySelector("#current-day");
+    currentDay.innerHTML = formatDay(now);
 
-    let projTime = document.querySelector("#current-time");
-    projTime.innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    let currentTime = document.querySelector("#current-time");
+    currentTime.innerHTML = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    let projDate = document.querySelector("#current-date");
-    projDate.innerHTML = now.toLocaleDateString();
+    let currentDate = document.querySelector("#current-date");
+    currentDate.innerHTML = now.toLocaleDateString();
 }
 
 
@@ -120,21 +120,21 @@ function addListeners() {
     let form = document.querySelector("form");
     form.addEventListener("submit", submit);
 
-    let celtemp = document.querySelector("#current-celcius");
-    celtemp.addEventListener("click", showcel);
+    let celsiusTemperature = document.querySelector("#current-celsius");
+    celsiusTemperature.addEventListener("click", celsiusConvertion);
 
-    let fahrtemp = document.querySelector("#current-fahrenheit");
-    fahrtemp.addEventListener("click", showfahr);
+    let fahrenheitTemperature = document.querySelector("#current-fahrenheit");
+    fahrenheitTemperature.addEventListener("click", fahrenheitConvertion);
 
-    let locButton = document.querySelector("#form-btn-location");
-    locButton.addEventListener("click", getCurrentPosition);
+    let locationButton = document.querySelector("#form-btn-location");
+    locationButton.addEventListener("click", getCurrentPosition);
 }
 
 
 function main() {
     addListeners();
     displayCurrentDate();
-    navigator.geolocation.getCurrentPosition(showTempPos);
+    navigator.geolocation.getCurrentPosition(getCurrentLocation);
 }
 
 main();
