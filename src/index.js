@@ -1,7 +1,6 @@
 //--API--//
 
 let celciusTemperature;
-let apiKey = "f2a7bf87b777299f2d3968c89592e347";
 let baseUrl = "https://api.openweathermap.org/data/2.5";
 
 
@@ -87,18 +86,18 @@ function displayForecast(response) {
     let forecastElement = document.querySelector("#forecast");
 
     forecastElement.innerHTML = `
-   <div class="grid">
+   <div class="container-fluid">
    ${forecast.reduce((res, day) => res + `
-   <div class="forecast-unit">
-   <span class = "forecast-day">${formatDay(new Date(day.dt * 1000))}</span> 
-                <br />
-                <span class = "forecast-temperature">${Math.round(day.temp.day)}°C</span>
-                <br />
-                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" id="forecast-icon" />
-            </div>
+      <div class="forecast-unit">
+                <div class = "col-sm-auto forecast-day">${formatDay(new Date(day.dt * 1000))}</div> 
+                
+                <div class = "forecast-temperature">${Math.round(day.temp.day)}°C</div>
+                
+                <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="" class="img-fluid" id="forecast-icon" />
+       </div>
 
        `, '')}
-        </div>`;
+    </div>`;
 }
 
 

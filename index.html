@@ -20,40 +20,42 @@
 
 <body>
     <div class="app">
-        <div class="container">
 
-            <div class="row">
-                <div class="col-7">
-                    <span id="current-temperature">14</span> <a href="#" id="current-celsius">°C</a>|<a href="#"
-                        id="current-fahrenheit">°F</a>
-                    <br />
-                    Humidity: <span id="current-humidity">59</span>%
-                    <br />
-                    Wind: <span id="current-wind">6 </span> m/sec
-                    <br />
-                    <span id="current-description">Clouds</span>
 
-                    <img src="" alt="Clear" id="current-icon" class="float-left" />
-                </div>
+        <div class="row-fluid">
+            <div class="col-sm-7">
+                <span id="current-temperature">14</span> <a href="#" id="current-celsius">°C</a>|<a href="#"
+                    id="current-fahrenheit">°F</a>
+                <br />
+                Humidity: <span id="current-humidity">59</span>%
+                <br />
+                Wind: <span id="current-wind">6 </span> m/sec
+                <br />
+                <span id="current-description">Clouds</span>
 
-                <div class="col-4">
-                    <span id="current-city"> Kyiv </span>
-                    <br />
-                    <div id="current-date">6/23/2022</div>
-
-                    <span id="current-day">Thursday</span>
-                    <span id="current-time">18:36</span>
-                </div>
+                <img src="#" alt="Clear" id="current-icon" class="img-fluid" />
             </div>
 
+            <div class="col-sm-4">
+                <span id="current-city"> Kyiv </span>
+                <br />
+                <div id="current-date">6/23/2022</div>
+
+                <span id="current-day">Thursday</span>
+                <span id="current-time">18:36</span>
+            </div>
         </div>
 
-        <div class="grid" id="forecast">
+
+
+
+
+        <div class="container-fluid" id="forecast">
 
 
         </div>
 
-        <div class="mb-3">
+        <div class="mb-1">
             <form action="submit" class="form">
                 <input type="text" class="form-control" id="form-input" placeholder="Enter a city" />
 
@@ -67,9 +69,11 @@
         </div>
         <a href="https://github.com/reneklio/weather_app_project" target="_blank" id="author">Coded by Kateryna
             Andriichuk</a>
-    </div>
 
+    </div>
     <script src="src/index.js"></script>
+    <script src="src/api_key.js"></script>
+    </div>
 </body>
 
 </html>
