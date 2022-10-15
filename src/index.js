@@ -4,10 +4,11 @@ let celciusTemperature;
 let baseUrl = "https://api.openweathermap.org/data/2.5";
 
 
+
 function getForecast(coordinates) {
     let apiUrl = `${baseUrl}/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
 
-    return axios.get(apiUrl).then(displayForecast);
+    return axios.get(apiUrl).then(displayForecast, displayError);
 }
 
 
@@ -32,15 +33,25 @@ function onCityReceived(response) {
 
 function getData(city) {
     let apiURL = `${baseUrl}/weather?q=${city}&appid=${apiKey}&units=metric`;
+    return axios.get(apiURL).then(onCityReceived, displayError)
 
-    return axios.get(apiURL).then(onCityReceived);
 }
 
 
+
 function submit(event) {
-    event.preventDefault();
     let inputName = document.querySelector("#form-input").value;
-    getData(inputName);
+    event.preventDefault();
+
+    getData(inputName)
+
+}
+
+function displayError(data) {
+    let inputName = document.querySelector("#form-input").value;
+    if (inputName.length === 0 || inputName != data.name) {
+        alert("Please, enter correct city name🙂")
+    }
 }
 
 
